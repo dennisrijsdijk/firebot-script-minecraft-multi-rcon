@@ -1,13 +1,10 @@
 import { Firebot } from "@crowbartools/firebot-custom-scripts-types";
+import {SendRconEffect} from "./send-rcon-effect";
 
-interface Params {
-  message: string;
-}
-
-const script: Firebot.CustomScript<Params> = {
+const script: Firebot.CustomScript<{}> = {
   getScriptManifest: () => {
     return {
-      name: "Starter Custom Script",
+      name: "Minecraft Multi-RCON",
       description: "A starter custom script for build",
       author: "SomeDev",
       version: "1.0",
@@ -15,18 +12,10 @@ const script: Firebot.CustomScript<Params> = {
     };
   },
   getDefaultParameters: () => {
-    return {
-      message: {
-        type: "string",
-        default: "Hello World!",
-        description: "Message",
-        secondaryDescription: "Enter a message here",
-      },
-    };
+    return { };
   },
   run: (runRequest) => {
-    const { logger } = runRequest.modules;
-    logger.info(runRequest.parameters.message);
+    runRequest.modules.effectManager.registerEffect(SendRconEffect);
   },
 };
 
