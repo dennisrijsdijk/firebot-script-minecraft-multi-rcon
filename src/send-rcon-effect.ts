@@ -70,13 +70,15 @@ export const SendRconEffect: Firebot.EffectType<{
                 await rcon.send(effect.command);
                 await rcon.end();
                 resolve();
-            })
+            });
 
             rcon.on("error", async () => {
                 await rcon.end();
                 reject();
             });
         });
+
+        await rcon.connect();
 
         await promise;
     }
